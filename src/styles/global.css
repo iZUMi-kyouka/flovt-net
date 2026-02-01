@@ -1,3 +1,5 @@
+@import "@fontsource/iosevka/400.css";
+
 @font-face {
   font-family: "VCR";
   src: url("/fonts/VCRosdNEUE.ttf") format("truetype");
@@ -6,6 +8,27 @@
 }
 body {
   font-family: "VCR", monospace !important;
+}
+
+/* Descriptive content: body text, descriptions, excerpts, dates */
+.font-descriptive {
+  font-family: "Iosevka", monospace;
+}
+
+/* Keep headings and highlights in VCR when inside descriptive (e.g. blog post) */
+.prose.font-descriptive h1,
+.prose.font-descriptive h2,
+.prose.font-descriptive h3,
+.prose.font-descriptive h4,
+.prose.font-descriptive h5,
+.prose.font-descriptive h6 {
+  font-family: "VCR", monospace !important;
+}
+
+/* Code blocks and inline code use Iosevka in descriptive content */
+.prose.font-descriptive pre,
+.prose.font-descriptive code {
+  font-family: "Iosevka", monospace !important;
 }
 
 pre,

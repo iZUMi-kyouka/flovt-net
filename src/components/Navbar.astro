@@ -15,9 +15,9 @@ import { SITE_TITLE, NAV_LINKS as links } from "@/consts";
       </div>
     </a>
     <div class="flex flex-wrap gap-4 md:pr-5">
-      <div class="hidden md:block">/</div>
+      {links.length > 1 && <div class="hidden md:block">/</div>}
       {
-        links.map((link) => {
+        links.map((link, index) => {
           const href =
             link.href ?? link.title.toLowerCase().replaceAll(" ", "-");
           const pathname = Astro.url.pathname.replace(
@@ -36,11 +36,12 @@ import { SITE_TITLE, NAV_LINKS as links } from "@/consts";
               >
                 <div>{link.title}</div>
               </a>
-              <div class="hidden md:block">/</div>
+              {index < links.length - 1 && <div class="hidden md:block">/</div>}
             </>
           );
         })
       }
+      {links.length > 1 && <div class="hidden md:block">/</div>}
     </div>
   </div>
 </nav>

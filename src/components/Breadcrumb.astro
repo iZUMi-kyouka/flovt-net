@@ -1,12 +1,19 @@
 ---
 type Props = {
   title: string;
+  /** "card" = subtle pill for use on experience cards (border + light text) */
+  variant?: "default" | "card";
 };
-const { title = "Title" } = Astro.props;
+const { title = "Title", variant = "default" } = Astro.props;
+
+const base =
+  "flex items-center justify-center leading-none text-center select-none font-semibold w-fit";
+const variants = {
+  default: "bg-white text-black pt-2 pb-1 px-5 rounded-2xl",
+  card: "border border-white/40 text-white/90 bg-white/[0.06] px-2 py-1 text-sm rounded-none",
+};
 ---
 
-<div
-  class="bg-white flex items-center justify-center leading-none pt-2 pb-1 text-center select-none rounded-2xl px-5 font-semibold text-black w-fit"
->
+<div class={`${base} ${variants[variant]}`}>
   <span>{title}</span>
 </div>

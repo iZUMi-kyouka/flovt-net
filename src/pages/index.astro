@@ -4,16 +4,41 @@ import Hero from "@/components/Hero.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Section from "@/components/Section.astro";
 import BlogPostCard from "@/components/BlogPostCard.astro";
+import ExperienceCard from "@/components/ExperienceCard.astro";
 import Layout from "@/layouts/Layout.astro";
-import { KNOWN_TECH, ABOUT_ME } from "@/consts";
+import { KNOWN_TECH, ABOUT_ME, SITE_TITLE, EXPERIENCES } from "@/consts";
+
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<Layout title="Token - Astro + Tailwind Portfolio Template">
+<Layout title={SITE_TITLE + " ⟋ Portfolio"}>
   <Hero />
-  <Section
+  <Section title="Technologies" full_screen={false}>
+    <div class="w-full grid place-items-center">
+      <div
+        class="w-full gap-4 flex flex-wrap px-3 max-w-xl text-lg justify-center"
+      >
+        {KNOWN_TECH.map((x) => <Breadcrumb title={x} />)}
+      </div>
+    </div>
+  </Section>
+  <Section title="Experiences">
+    <div class="w-full flex flex-wrap gap-4 justify-center items-start px-3 max-w-5xl mx-auto">
+      {EXPERIENCES.map((exp) => (
+        <ExperienceCard
+          title={exp.title}
+          company={exp.company}
+          date={exp.date}
+          type={exp.type}
+          url={exp.url}
+          description={exp.description}
+        />
+      ))}
+    </div>
+  </Section>
+  {posts.length > 0 && <Section
     title="My Posts"
     className={"bg-gradient-to-b from-black/70 from-[5%] to-black via-black"}
   >
@@ -29,23 +54,5 @@ const posts = (await getCollection("blog")).sort(
         ))
       }
     </div>
-  </Section>
-  <Section title="Technologies I Know" full_screen={false}>
-    <div class="w-full grid place-items-center">
-      <div
-        class="w-full gap-4 flex flex-wrap px-3 max-w-xl text-lg justify-center"
-      >
-        {KNOWN_TECH.map((x) => <Breadcrumb title={x} />)}
-      </div>
-    </div>
-  </Section>
-  <Section title="About Me">
-    <div class="w-full grid place-items-center">
-      <div
-        class="max-w-4xl text-xl md:text-lg opacity-90 text-center justify-evenly"
-      >
-        <p>{ABOUT_ME}</p>
-      </div>
-    </div>
-  </Section>
+  </Section>}
 </Layout>
